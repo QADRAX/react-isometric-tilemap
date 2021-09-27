@@ -1,0 +1,10 @@
+
+.tilemap{
+    --tile-scale: 16;
+	--tile-offset: .4px * var(--tile-scale);
+	--tile-size: 186px;
+
+	background: #CBF0FF;
+	margin: 0px;
+	overflow: hidden;
+}
