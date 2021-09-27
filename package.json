@@ -1,17 +1,17 @@
 {
-  "name": "sixfootsixdesigns-react-library-boilerplate",
+  "name": "react-isometric-tilemap",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": false,
-  "description": "React Typescript Library Boilerplate",
-  "author": "James Olson",
-  "homepage": "https://github.com/sixfootsixdesigns/React-Library-Boilerplate",
+  "description": "Isometric HTML/CSS tilemap react wrapper",
+  "author": "Carlos Cuadra",
+  "homepage": "https://github.com/QADRAX/react-isometric-tilemap",
   "bugs": {
-    "url": "https://github.com/sixfootsixdesigns/React-Library-Boilerplate/issues"
+    "url": "https://github.com/QADRAX/react-isometric-tilemap/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sixfootsixdesigns/React-Library-Boilerplate.git"
+    "url": "git+https://github.com/QADRAX/react-isometric-tilemap.git"
   },
   "scripts": {
     "build": "yarn clean && rollup -c",
@@ -95,7 +95,6 @@
     "webpack": "^4.42.1"
   },
   "engines": {
-    "node": ">=12.0.0",
     "yarn": "^1.5"
   },
   "husky": {
