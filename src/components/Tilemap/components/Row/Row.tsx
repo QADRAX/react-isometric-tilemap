@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { TilemapContext } from '../context/TilemapContext';
+import { TilemapContext } from '../../context/TilemapContext';
 import Col from './Col/Col';
 
 type RowProps = {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useRef, useState, useContext } from 'react';
-import { Position } from '../..';
-import { TilemapContext } from './context/TilemapContext';
+import { Position } from '../../..';
+import { TilemapContext } from '../context/TilemapContext';
 import Row from './Row/Row';
 
 const initialMapPosition: Position = {

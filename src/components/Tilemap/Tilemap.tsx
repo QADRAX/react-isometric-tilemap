@@ -4,10 +4,10 @@ import { setColSize, setDragSpeedRatio, setRowSize, setTileSchema } from './cont
 import { TilemapContext } from './context/TilemapContext';
 import { tilemapReducer } from './context/TilemapReducer';
 import { initialState } from './context/TilemapState';
-import Table from './Table';
+import Table from './components/Table';
 import './tilemap.scss';
 
-type TilemapProps = {
+export type TilemapProps = {
   rowSize?: number;
   colSize?: number;
   dragSpeedRatio?: number;

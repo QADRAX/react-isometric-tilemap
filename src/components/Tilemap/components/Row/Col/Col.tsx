@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { TileSchema } from '../../../..';
-import { TilemapContext } from '../../context/TilemapContext';
-import { getElementFromMatrix } from '../../utils';
+import { TileSchema } from '../../../../..';
+import { TilemapContext } from '../../../context/TilemapContext';
+import { getElementFromMatrix } from '../../../../../utils';
 import Tile from './Tile/Tile';
 
 const defaultTileSchema: TileSchema = {
