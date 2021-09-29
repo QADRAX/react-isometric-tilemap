@@ -29,7 +29,15 @@ export interface SetDragSpeedRatio {
     payload: {
         dragSpeedRatio: number;
     },
-}
+};
+
+export interface SetZoom {
+    type: ActionType.SetZoom,
+    payload: {
+        zoom: number;
+    },
+};
+
 
 /**
  * Action types enum
@@ -40,12 +48,13 @@ export enum ActionType {
     SetRowSize,
     SetTileSchemas,
     SetDragSpeedRatio,
+    SetZoom,
 };
 
 /**
  * Types for diferent actions
  */
-export type TilemapActions = SetColSize | SetRowSize | SetTileSchemas | SetDragSpeedRatio;
+export type TilemapActions = SetColSize | SetRowSize | SetTileSchemas | SetDragSpeedRatio | SetZoom;
 
 // helper functions to simplify the caller
 
@@ -75,4 +84,11 @@ export const setDragSpeedRatio = (
 ): SetDragSpeedRatio => ({
     type: ActionType.SetDragSpeedRatio,
     payload: { dragSpeedRatio },
+});
+
+export const setZoom = (
+    zoom: number,
+): SetZoom => ({
+    type: ActionType.SetZoom,
+    payload: { zoom },
 });

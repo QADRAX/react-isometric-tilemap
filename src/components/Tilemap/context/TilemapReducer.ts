@@ -30,7 +30,11 @@ export function tilemapReducer(
         case ActionType.SetDragSpeedRatio:
             nextState.dragSpeedRatio = action.payload.dragSpeedRatio;
             return nextState;
-
+        
+        case ActionType.SetZoom:
+            nextState.currentZoom = action.payload.zoom;
+            return nextState;
+            
         default:
             return state;
     }

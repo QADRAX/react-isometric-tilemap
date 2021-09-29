@@ -39,14 +39,12 @@ const Tilemap: FunctionComponent<TilemapProps> = (props) => {
     if(props.tileSchemas){
       dispatch(setTileSchema(props.tileSchemas));
     }
-  }, [props.tileSchemas])
-
+  }, [props.tileSchemas]);
 
   return (
     <TilemapContext.Provider value={{state, dispatch}}>
       <Table></Table>
     </TilemapContext.Provider>
-
   )
 };
 

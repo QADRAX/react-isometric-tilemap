@@ -5,11 +5,13 @@ export type TilemapState = {
     rowSize: number;
     colSize: number;
     dragSpeedRatio: number;
+    currentZoom: number;
 };
 
 export const initialState: TilemapState = {
     tileSchemas: [[]],
     rowSize: 0,
     colSize: 0,
-    dragSpeedRatio: 0.05,
+    dragSpeedRatio: 1,
+    currentZoom: 16,
 };

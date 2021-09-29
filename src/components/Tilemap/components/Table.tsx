@@ -1,27 +1,27 @@
-import React, { FunctionComponent, useRef, useState, useContext } from 'react';
+import React, { FunctionComponent, useRef, useState, useContext, useEffect } from 'react';
 import { Position } from '../../..';
 import { TilemapContext } from '../context/TilemapContext';
 import Row from './Row/Row';
-
-const initialMapPosition: Position = {
-    x: 0,
-    y: 0,
-};
+import { useResizeDetector } from 'react-resize-detector';
 
 const Table: FunctionComponent<{}> = () => {
+    // Context
     const { state } = useContext(TilemapContext);
 
     // Refs
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
-    const containerRef = useRef<HTMLDivElement>(null);
+    // Resize Hook
+    const { width: wrapperWidth, height: wrapperHeight } = useResizeDetector({
+        targetRef: wrapperRef,
+    });
 
     // State
-
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [mousePosition, setMousePosition] = useState<Position | null>(null);
-    const [mapPosition, setMapPosition] = useState<Position>(initialMapPosition);
+    const [mapPosition, setMapPosition] = useState<Position>({ x: 0, y: 0 });
 
-    // Actions
+    // Events
 
     const onMouseDown = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
         const nextMousePosition: Position = {
@@ -39,19 +39,22 @@ const Table: FunctionComponent<{}> = () => {
     };
 
     const onMouseMove = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-        const container = containerRef.current;
-        if (isDragging && mousePosition != null && container) {
+        if (isDragging && mousePosition != null) {
             const dragSpeedRatio = state.dragSpeedRatio;
-            const containerWidth = container.clientWidth;
-            const conteinerHeight = container.clientHeight;
 
-            const relativeMovementX = (event.pageX - mousePosition.x) / (containerWidth * dragSpeedRatio);
-            const relativeMovementY = (event.pageY - mousePosition.y) / (conteinerHeight * dragSpeedRatio);
+            const relativeMovementX = (event.pageX - mousePosition.x) * (dragSpeedRatio);
+            const relativeMovementY = (event.pageY - mousePosition.y) * (dragSpeedRatio);
 
+            const nextMousePosition: Position = {
+                x: event.pageX,
+                y: event.pageY,
+            };
             const nextMapPosition: Position = {
                 x: mapPosition.x + relativeMovementX,
                 y: mapPosition.y + relativeMovementY,
             };
+            
+            setMousePosition(nextMousePosition);
             setMapPosition(nextMapPosition);
         }
     };
@@ -60,11 +63,33 @@ const Table: FunctionComponent<{}> = () => {
         setIsDragging(false);
     };
 
+    // Actions
+
+    const setInitialPosition = () => {
+        if (wrapperHeight && wrapperWidth) {
+            const initialPos: Position = {
+                x: wrapperWidth / 2,
+                y: 0,
+            };
+            setMapPosition(initialPos)
+        }
+    };
+
+    // Resize effect
+
+    useEffect(() => {
+        setInitialPosition();
+    }, [wrapperHeight, wrapperWidth]);
+
     // Computed fields
 
     const tableStyle: React.CSSProperties = {
         left: `${mapPosition.x}px`,
         top: `${mapPosition.y}px`,
+    };
+
+    const wrapperStyle: React.CSSProperties = {
+        fontSize: `${state.currentZoom}px`,
     };
 
     const rows: JSX.Element[] = [];
@@ -76,10 +101,11 @@ const Table: FunctionComponent<{}> = () => {
 
     return (
         <div className="tilemap"
+            style={wrapperStyle}
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
-            ref={containerRef}>
+            ref={wrapperRef}>
             <table style={tableStyle}>
                 <tbody>
                     {rows}
