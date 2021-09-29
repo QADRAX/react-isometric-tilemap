@@ -1,10 +1,10 @@
-import React, { FunctionComponent, useRef, useState, useContext, useEffect } from 'react';
+import React, { useRef, useState, useContext, useEffect } from 'react';
 import { Position } from '../../..';
 import { TilemapContext } from '../context/TilemapContext';
 import Row from './Row/Row';
 import { useResizeDetector } from 'react-resize-detector';
 
-const Table: FunctionComponent<{}> = () => {
+const Table = () => {
     // Context
     const { state } = useContext(TilemapContext);
 
@@ -53,7 +53,7 @@ const Table: FunctionComponent<{}> = () => {
                 x: mapPosition.x + relativeMovementX,
                 y: mapPosition.y + relativeMovementY,
             };
-            
+
             setMousePosition(nextMousePosition);
             setMapPosition(nextMapPosition);
         }
@@ -63,9 +63,10 @@ const Table: FunctionComponent<{}> = () => {
         setIsDragging(false);
     };
 
-    // Actions
-
-    const setInitialPosition = () => {
+    /**
+     * Set initial position when resizing
+     */
+    useEffect(() => {
         if (wrapperHeight && wrapperWidth) {
             const initialPos: Position = {
                 x: wrapperWidth / 2,
@@ -73,12 +74,6 @@ const Table: FunctionComponent<{}> = () => {
             };
             setMapPosition(initialPos)
         }
-    };
-
-    // Resize effect
-
-    useEffect(() => {
-        setInitialPosition();
     }, [wrapperHeight, wrapperWidth]);
 
     // Computed fields

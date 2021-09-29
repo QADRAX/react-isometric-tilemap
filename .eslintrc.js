@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/camelcase': rules.OFF,
     '@typescript-eslint/explicit-function-return-type': rules.OFF,
     '@typescript-eslint/explicit-member-accessibility': rules.OFF,
+    '@typescript-eslint/explicit-module-boundary-types': rules.OFF,
     '@typescript-eslint/no-non-null-assertion': rules.OFF,
     '@typescript-eslint/no-unused-vars': rules.OFF,
     '@typescript-eslint/array-type': rules.OFF,
