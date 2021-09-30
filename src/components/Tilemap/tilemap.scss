@@ -66,6 +66,20 @@
 				width: var(--tile-size);
 				height: var(--tile-size);
 
+				.tile_prueba {
+					transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-1.1em, -4.8em, 0em);
+	
+					width: 11.5em;
+					height: 10em;
+	
+					background-size: 100% 100%;
+					background-position: 0px 0px;
+					background-repeat: no-repeat;
+					background-image: url(https://i.ibb.co/7Y14FNW/tile1.png);
+					image-rendering: pixelated;
+				}
+
+
 				.tile_image {
 					transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-1.1em, -4.8em, 0em);
 	

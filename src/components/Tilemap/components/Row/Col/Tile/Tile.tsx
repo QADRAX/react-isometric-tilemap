@@ -12,7 +12,7 @@ const BASE_Z_INDEX_CONTENT = 1000;
 const BASE_Z_INDEX_TILE = 2000;
 
 const Tile: FunctionComponent<TileProps> = (props) => {
-    const contentClass = classnames('tile_image', 'tile-0');
+    const contentClass = classnames('tile_prueba');
 
     const contentZIndex = (BASE_Z_INDEX_CONTENT + props.col + props.row) * 2;
     const tileZIndex = (BASE_Z_INDEX_TILE + props.col + props.row) * 2;
