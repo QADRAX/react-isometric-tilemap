@@ -7,7 +7,16 @@ const defaultProps: TilemapProps = {
   colSize: 1,
 };
 
-const setup = (props = defaultProps) => render(<Tilemap {...props} />);
+class ResizeObserverMock implements ResizeObserver {
+  observe() { }
+  unobserve() { }
+  disconnect() { }
+}
+
+const setup = (props = defaultProps) => {
+  window.ResizeObserver = ResizeObserverMock;
+  render(<Tilemap {...props} />)
+};
 
 describe('Tilemap', () => {
   it('renders', () => {
@@ -24,8 +33,8 @@ describe('Tilemap', () => {
     const numberOfCols = 4;
     const expectedTiles = numberOfCols * numberOfRows;
 
-    setup({rowSize: numberOfRows, colSize: numberOfCols});
-    
+    setup({ rowSize: numberOfRows, colSize: numberOfCols });
+
     const tiles = document.getElementsByClassName('tile');
     const sameAsExpected = tiles.length == expectedTiles;
 
