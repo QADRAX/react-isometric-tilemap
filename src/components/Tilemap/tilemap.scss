@@ -1,3 +1,6 @@
+$xRotation: 60deg;
+$zRotation: 45deg;
+
 .tilemap {
 	--tile-size: 4em;
 
@@ -17,7 +20,7 @@
 	table {
 		cursor: default;
 		position: absolute;
-		transform: rotateX(60deg) rotateZ(45deg);
+		transform: rotateX($xRotation) rotateZ($zRotation);
 		border-spacing: 0px;
 
 		tr {
@@ -67,7 +70,7 @@
 				height: var(--tile-size);
 
 				.tile_image {
-					transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-1.1em, -4.8em, 0em);
+					transform: rotateZ(-$zRotation) rotateY(-$xRotation) translate3d(-1.1em, -4.8em, 0em);
 	
 					width: 11.5em;
 					height: 10em;
