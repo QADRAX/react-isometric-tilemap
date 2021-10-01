@@ -3,10 +3,11 @@ import { Position } from '../../..';
 import { TilemapContext } from '../context/TilemapContext';
 import Row from './Row/Row';
 import { useResizeDetector } from 'react-resize-detector';
+import { setZoom } from '../context/TilemapActions';
 
 const Table = () => {
     // Context
-    const { state } = useContext(TilemapContext);
+    const { state, dispatch } = useContext(TilemapContext);
 
     // Refs
     const wrapperRef = useRef<HTMLDivElement>(null);
@@ -63,6 +64,19 @@ const Table = () => {
         setIsDragging(false);
     };
 
+    const onWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+        const deltaY = event.deltaY;
+        if (deltaY < 0) {
+            const nextZoom = state.currentZoom + 1;
+            dispatch(setZoom(nextZoom));
+        } else {
+            if (state.currentZoom > 0) {
+                const nextZoom = state.currentZoom - 1;
+                dispatch(setZoom(nextZoom));
+            }
+        }
+    };
+
     /**
      * Set initial position when resizing
      */
@@ -100,6 +114,7 @@ const Table = () => {
             onMouseDown={onMouseDown}
             onMouseMove={onMouseMove}
             onMouseUp={onMouseUp}
+            onWheel={onWheel}
             ref={wrapperRef}>
             <table style={tableStyle}>
                 <tbody>
