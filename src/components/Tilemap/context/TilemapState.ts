@@ -1,4 +1,5 @@
 import { TileSchema } from "../../..";
+import { SpritePack } from "../SpritePackBuilder";
 
 export type TilemapState = {
     tileSchemas: TileSchema[][];
@@ -6,6 +7,7 @@ export type TilemapState = {
     colSize: number;
     dragSpeedRatio: number;
     currentZoom: number;
+    spritePack?: SpritePack;
 };
 
 export const initialState: TilemapState = {

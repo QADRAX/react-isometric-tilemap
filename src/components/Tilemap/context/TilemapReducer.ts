@@ -34,6 +34,10 @@ export function tilemapReducer(
         case ActionType.SetZoom:
             nextState.currentZoom = action.payload.zoom;
             return nextState;
+
+        case ActionType.SetSpritePack:
+            nextState.spritePack = action.payload.spritePack;
+            return nextState;
             
         default:
             return state;

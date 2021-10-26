@@ -1,17 +1,19 @@
-import React, { FunctionComponent, useReducer} from 'react';
-import { TileSchema } from '../..';
-import { setColSize, setDragSpeedRatio, setRowSize, setTileSchema } from './context/TilemapActions';
+import React, { FunctionComponent, useReducer, useEffect} from 'react';
+import { SpriteDefinition, TileSchema } from '../..';
+import { setColSize, setDragSpeedRatio, setRowSize, setSpritePack, setTileSchema } from './context/TilemapActions';
 import { TilemapContext } from './context/TilemapContext';
 import { tilemapReducer } from './context/TilemapReducer';
 import { initialState } from './context/TilemapState';
 import Table from './components/Table';
 import './tilemap.scss';
 import { distpatchOnChange } from '../../hooks/dispatchOnChange';
+import { buildSpritePack } from './SpritePackBuilder';
 
 export type TilemapProps = {
   rowSize?: number;
   colSize?: number;
   dragSpeedRatio?: number;
+  spritesDefinition?: SpriteDefinition[];
   tileSchemas?: TileSchema[][];
 };
 
@@ -44,8 +46,23 @@ const Tilemap: FunctionComponent<TilemapProps> = (props) => {
     setTileSchema,
   );
 
+  const buildPack = async () =>  {
+    if(props.spritesDefinition){
+      const spritePack = await buildSpritePack(props.spritesDefinition);
+      dispatch(setSpritePack(spritePack));
+    }
+  };
+
+  useEffect(() => {
+    buildPack();
+  }, [props.spritesDefinition])
+
   return (
     <TilemapContext.Provider value={{state, dispatch}}>
+      {
+        state.spritePack != null && 
+        <img src={state.spritePack.base64} />
+      }
       <Table></Table>
     </TilemapContext.Provider>
   )

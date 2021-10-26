@@ -1,4 +1,5 @@
 import { TileSchema } from "../../..";
+import { SpritePack } from "../SpritePackBuilder";
 
 /**
  * Set col size action
@@ -38,6 +39,13 @@ export interface SetZoom {
     },
 };
 
+export interface SetSpritePack {
+    type: ActionType.SetSpritePack,
+    payload: {
+        spritePack: SpritePack,
+    }
+}
+
 
 /**
  * Action types enum
@@ -49,12 +57,13 @@ export enum ActionType {
     SetTileSchemas,
     SetDragSpeedRatio,
     SetZoom,
+    SetSpritePack,
 };
 
 /**
  * Types for diferent actions
  */
-export type TilemapActions = SetColSize | SetRowSize | SetTileSchemas | SetDragSpeedRatio | SetZoom;
+export type TilemapActions = SetColSize | SetRowSize | SetTileSchemas | SetDragSpeedRatio | SetZoom | SetSpritePack;
 
 // helper functions to simplify the caller
 
@@ -91,4 +100,11 @@ export const setZoom = (
 ): SetZoom => ({
     type: ActionType.SetZoom,
     payload: { zoom },
+});
+
+export const setSpritePack = (
+    spritePack: SpritePack,
+): SetSpritePack => ({
+    type: ActionType.SetSpritePack,
+    payload: { spritePack },
 });
