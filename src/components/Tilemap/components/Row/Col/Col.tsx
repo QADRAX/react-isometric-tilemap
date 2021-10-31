@@ -1,12 +1,7 @@
 import React, { FunctionComponent, useContext } from 'react';
-import { TileSchema } from '../../../../..';
 import { TilemapContext } from '../../../context/TilemapContext';
 import { getElementFromMatrix } from '../../../../../utils';
 import Tile from './Tile/Tile';
-
-const defaultTileSchema: TileSchema = {
-  id: 'klk',
-};
 
 type ColProps = {
   rowIndex: number;
@@ -22,7 +17,7 @@ const Col: FunctionComponent<ColProps> = (props) => {
   };
   const row = props.rowIndex;
   const col = props.colIndex;
-  const tileSchema = getElementFromMatrix(state.tileSchemas, row, col) ?? defaultTileSchema;
+  const tileSchema = getElementFromMatrix(state.tileSchemas, row, col);
 
   return (
     <td className={colClass}

@@ -1,18 +1,19 @@
 export type TileSchema = {
-    id?: string;
-};
-
-export type SpriteDefinition = {
     id: string;
-    sprite: Sprite;
 };
 
 export class Sprite {
+    private spriteId: string; 
     private htmlImage: HTMLImageElement;
 
-    constructor(imageSrc: string) {
+    constructor(spriteId: string, imageSrc: string) {
+        this.spriteId = spriteId;
         this.htmlImage = new Image();
         this.htmlImage.src = imageSrc;
+    }
+
+    get id() {
+        return this.spriteId;
     }
 
     get width() {

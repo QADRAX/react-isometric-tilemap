@@ -1,108 +1,143 @@
 $xRotation: 60deg;
 $zRotation: 45deg;
 
-.tilemap {
-	--tile-size: 4em;
+.tilemap_wrapper {
+	--sprite-pack: '';
 
-	height: 100%;
 	width: 100%;
+	height: 100%;
 
-	background: #cbf0ff;
-	margin: 0px;
-	overflow: hidden;
-
-	position: relative;
-
-	&:hover {
-		cursor: all-scroll;
-	}
-
-	table {
-		cursor: default;
-		position: absolute;
-		transform: rotateX($xRotation) rotateZ($zRotation);
-		border-spacing: 0px;
-
-		tr {
-			height: 0px;
-			width: 0px;
-			display: block;
+	.tilemap {
+		--tile-size: 4em;
+	
+		height: 100%;
+		width: 100%;
+	
+		background: #cbf0ff;
+		margin: 0px;
+		overflow: hidden;
+	
+		position: relative;
+	
+		&:hover {
+			cursor: all-scroll;
 		}
-
-		td {
-			height: 0px;
-			width: 0px;
-			display: block;
-			padding: 0px;
-		}
-
-
-
-		tr td {
-			.tile {
-				cursor: pointer;
-				position: fixed;
-				transform: translate3d(0em, 0em, 0em);
-				width: var(--tile-size);
-				height: var(--tile-size);
-
-				&:hover{
-					-webkit-box-shadow:inset 0 0 0 0.325rem azure;
-					-moz-box-shadow:inset 0 0 0 0.325rem azure;
-					box-shadow:inset 0 0 0 0.325rem azure;
-					transition: all 1s cubic-bezier(0.22, 0.6, 0.39, 1.42);
-				}
-
-				&.hide {
-					transform: translate3d(12em, 12em, 0em) !important;
-					opacity: 0;
-
-					transition: all 1s cubic-bezier(0.7, -0.4, 0.88, 0.51);
-				}
+	
+		table {
+			cursor: default;
+			position: absolute;
+			transform: rotateX($xRotation) rotateZ($zRotation);
+			border-spacing: 0px;
+	
+			tr {
+				height: 0px;
+				width: 0px;
+				display: block;
 			}
-
-			.tile_image-container {
-				position: fixed;
-				pointer-events: none;
-
-				transform: translate3d(0em, 0em, 0em);
-				width: var(--tile-size);
-				height: var(--tile-size);
-
-				.tile_prueba {
-					transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-1.1em, -4.8em, 0em);
 	
-					width: 11.5em;
-					height: 10em;
+			td {
+				height: 0px;
+				width: 0px;
+				display: block;
+				padding: 0px;
+			}
 	
-					background-size: 100% 100%;
-					background-position: 0px 0px;
-					background-repeat: no-repeat;
-					background-image: url(https://i.ibb.co/7Y14FNW/tile1.png);
-					image-rendering: pixelated;
-				}
-
-
-				.tile_image {
-					transform: rotateZ(-$zRotation) rotateY(-$xRotation) translate3d(-1.1em, -4.8em, 0em);
 	
-					width: 11.5em;
-					height: 10em;
 	
-					background-size: 1600% 100%;
-					background-position: -6px 0px;
-					background-repeat: no-repeat;
-					background-image: url(http://img14.deviantart.net/f99b/i/2011/354/d/5/isometric_new_tiles_by_spasquini-d4jnp2i.png);
-					image-rendering: pixelated;
+			tr td {
+				.tile {
+					cursor: pointer;
+					position: fixed;
+					transform: translate3d(0em, 0em, 0em);
+					width: var(--tile-size);
+					height: var(--tile-size);
 	
-					&.tile-0 {
-						background-position: calc(-1px + (-183.5px * 0)) 0px;
+					&:hover{
+						-webkit-box-shadow:inset 0 0 0 0.325rem azure;
+						-moz-box-shadow:inset 0 0 0 0.325rem azure;
+						box-shadow:inset 0 0 0 0.325rem azure;
+						transition: all 1s cubic-bezier(0.22, 0.6, 0.39, 1.42);
 					}
-					&.tile-1 {
-						background-position: calc(-1px + (-183.5px * 1)) 0px;
+	
+					&.hide {
+						transform: translate3d(12em, 12em, 0em) !important;
+						opacity: 0;
+	
+						transition: all 1s cubic-bezier(0.7, -0.4, 0.88, 0.51);
 					}
 				}
+
+				// sprite pack implementation
+
+				.tile_sprite-container {
+					position: fixed;
+					pointer-events: none;
+	
+					transform: translate3d(0em, 0em, 0em);
+					width: var(--tile-size);
+					height: var(--tile-size);
+
+					.sprite {
+						--sprite-width: 11.5em;
+						--sprite-height: 10em;
+
+						transform: rotateZ(-$zRotation) rotateY(-$xRotation) translate3d(-1.1em, -4.8em, 0em);
+		
+						width: var(--sprite-width);
+						height: var(--sprite-height);
+		
+						//background-size: {numberOfSprites}00% 100%;
+						background-repeat: no-repeat;
+						background-image: var(--sprite-pack);
+						image-rendering: pixelated;
+					}
+				}
+
+
+	
+				.tile_image-container {
+					position: fixed;
+					pointer-events: none;
+	
+					transform: translate3d(0em, 0em, 0em);
+					width: var(--tile-size);
+					height: var(--tile-size);
+	
+					.tile_prueba {
+						transform: rotateZ(-45deg) rotateY(-60deg) translate3d(-1.1em, -4.8em, 0em);
+		
+						width: 11.5em;
+						height: 10em;
+		
+						background-size: 100% 100%;
+						background-position: 0px 0px;
+						background-repeat: no-repeat;
+						background-image: url(https://i.ibb.co/7Y14FNW/tile1.png);
+						image-rendering: pixelated;
+					}
+	
+	
+					.tile_image {
+						transform: rotateZ(-$zRotation) rotateY(-$xRotation) translate3d(-1.1em, -4.8em, 0em);
+		
+						width: 11.5em;
+						height: 10em;
+		
+						background-size: 1600% 100%;
+						background-position: -6px 0px;
+						background-repeat: no-repeat;
+						background-image: url(http://img14.deviantart.net/f99b/i/2011/354/d/5/isometric_new_tiles_by_spasquini-d4jnp2i.png);
+						image-rendering: pixelated;
+		
+						&.tile-0 {
+							background-position: calc(-1px + (-183.5px * 0)) 0px;
+						}
+						&.tile-1 {
+							background-position: calc(-1px + (-183.5px * 1)) 0px;
+						}
+					}
+				}
 			}
 		}
-	}
+	}	
 }

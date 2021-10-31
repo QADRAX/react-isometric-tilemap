@@ -1,5 +1,5 @@
-import React, { FunctionComponent, useReducer, useEffect} from 'react';
-import { SpriteDefinition, TileSchema } from '../..';
+import React, { FunctionComponent, useReducer, useEffect } from 'react';
+import { Sprite, TileSchema } from '../..';
 import { setColSize, setDragSpeedRatio, setRowSize, setSpritePack, setTileSchema } from './context/TilemapActions';
 import { TilemapContext } from './context/TilemapContext';
 import { tilemapReducer } from './context/TilemapReducer';
@@ -8,20 +8,21 @@ import Table from './components/Table';
 import './tilemap.scss';
 import { distpatchOnChange } from '../../hooks/dispatchOnChange';
 import { buildSpritePack } from './SpritePackBuilder';
+import GlobalStyleVariables from './components/GlobalStyleVariables';
 
 export type TilemapProps = {
   rowSize?: number;
   colSize?: number;
   dragSpeedRatio?: number;
-  spritesDefinition?: SpriteDefinition[];
-  tileSchemas?: TileSchema[][];
+  sprites?: Sprite[];
+  schema?: TileSchema[][];
 };
 
 const Tilemap: FunctionComponent<TilemapProps> = (props) => {
   const [state, dispatch] = useReducer(tilemapReducer, initialState);
 
   // Props binding
-  
+
   distpatchOnChange(
     props.rowSize,
     dispatch,
@@ -41,31 +42,29 @@ const Tilemap: FunctionComponent<TilemapProps> = (props) => {
   );
 
   distpatchOnChange(
-    props.tileSchemas,
+    props.schema,
     dispatch,
     setTileSchema,
   );
 
-  const buildPack = async () =>  {
-    if(props.spritesDefinition){
-      const spritePack = await buildSpritePack(props.spritesDefinition);
+  const buildPack = async () => {
+    if (props.sprites) {
+      const spritePack = await buildSpritePack(props.sprites);
       dispatch(setSpritePack(spritePack));
     }
   };
 
   useEffect(() => {
     buildPack();
-  }, [props.spritesDefinition])
+  }, [props.sprites])
 
   return (
-    <TilemapContext.Provider value={{state, dispatch}}>
-      {
-        state.spritePack != null && 
-        <img src={state.spritePack.base64} />
-      }
-      <Table></Table>
+    <TilemapContext.Provider value={{ state, dispatch }}>
+      <GlobalStyleVariables>
+        <Table />
+      </GlobalStyleVariables>
     </TilemapContext.Provider>
-  )
+  );
 };
 
 export default Tilemap;

@@ -1,5 +1,5 @@
 import mergeImages from 'merge-images';
-import { SpriteDefinition } from '../..';
+import { Sprite } from '../..';
 
 export type SpritePack = {
     /**
@@ -20,6 +20,7 @@ export type SpritePackDefinition = {
  * Sprite position on packed image
  */
 export type BuildedSpriteDefinition = {
+    index: number;
     x: number;
     y: number;
     width: number;
@@ -28,11 +29,11 @@ export type BuildedSpriteDefinition = {
 
 /**
  * 
- * @param spritesDefinition 
+ * @param sprites 
  * @returns spritePack
  */
 export async function buildSpritePack(
-    spritesDefinition: SpriteDefinition[],
+    sprites: Sprite[],
 ): Promise<SpritePack> {
     const buildedPack: SpritePackDefinition = {};
     const imageSources: mergeImages.ImageSource[] = [];
@@ -40,9 +41,7 @@ export async function buildSpritePack(
     let totalHeight = 0;
     let totalWidht = 0;
 
-    spritesDefinition.forEach((spriteDefinition) => {
-        const sprite = spriteDefinition.sprite;
-
+    sprites.forEach((sprite, index) => {
         const width = sprite.width;
         const height = sprite.height;
 
@@ -56,13 +55,14 @@ export async function buildSpritePack(
             y: 0,
         };
         const buildedSprite: BuildedSpriteDefinition = {
+            index,
             x: totalWidht,
             y: 0,
             width,
             height,
         };
 
-        buildedPack[spriteDefinition.id] = buildedSprite;
+        buildedPack[sprite.id] = buildedSprite;
 
         totalWidht += width;
 

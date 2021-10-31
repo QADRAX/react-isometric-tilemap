@@ -6,11 +6,6 @@ import { useResizeDetector } from 'react-resize-detector';
 import { setZoom } from '../context/TilemapActions';
 
 /**
- * Sprite pack CSS var name
- */
-const SPRITE_PACK_CSS_VAR = '--sprite-pack';
-
-/**
  * Main wrapper for react isometric tilemap.
  * Responsive changes, dragrable movement 
  * and scrollable zoom in/out functionallity is here.
@@ -108,11 +103,6 @@ const Table = () => {
         left: `${mapPosition.x}px`,
         top: `${mapPosition.y}px`,
     };
-    if (state.spritePack) {
-        const spritePackCSSVar = `url('${state.spritePack.base64}')`;
-        tableStyle[SPRITE_PACK_CSS_VAR] = spritePackCSSVar;
-    }
-
 
     const wrapperStyle: React.CSSProperties = {
         fontSize: `${state.currentZoom}px`,
